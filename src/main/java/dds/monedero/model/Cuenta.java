@@ -35,10 +35,11 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
-    // TODO: Movimiento debe ser Deposito
+    setSaldo(getSaldo() + cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
+    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
+    agregarMovimiento(movimiento);
   }
-
+  
   private long cantidadDeDepositos() {
 	return this.getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
   }
@@ -59,8 +60,9 @@ public class Cuenta {
           + " diarios, límite: " + limite);
     }
     
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
- // TODO: Movimiento debe ser Extraccion
+    Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
+    setSaldo(getSaldo() - cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
+    agregarMovimiento(movimiento);
   }
 
   public void agregarMovimiento(Movimiento movimiento) {

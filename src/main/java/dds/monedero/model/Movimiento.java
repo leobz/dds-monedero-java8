@@ -43,16 +43,15 @@ public class Movimiento { //hay dos tipos de movimientos: deposito y extraccion,
     return !esDeposito;
   }
 
-  public void agregateA(Cuenta cuenta) { //esta responsabilidad es de Cuenta
-    cuenta.setSaldo(calcularValor(cuenta));
-    cuenta.agregarMovimiento(fecha, monto, esDeposito);
-  }
-
   public double calcularValor(Cuenta cuenta) {
     if (esDeposito) {
       return cuenta.getSaldo() + getMonto();
     } else {
       return cuenta.getSaldo() - getMonto();
     }
+  }
+  
+  public boolean esDeposito() {
+	  return this.esDeposito;
   }
 }
