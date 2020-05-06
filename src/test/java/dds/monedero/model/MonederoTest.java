@@ -32,9 +32,12 @@ public class MonederoTest {
 
   @Test
   public void TresDepositos() {
-    cuenta.poner(1500);
-    cuenta.poner(456);
-    cuenta.poner(1900);
+	double saldo_ingresado = 1500;
+	double saldo_inicial = cuenta.getSaldo();
+    cuenta.poner(saldo_ingresado);
+    cuenta.poner(saldo_ingresado);
+    cuenta.poner(saldo_ingresado);
+    Assert.assertEquals(cuenta.getSaldo(), saldo_inicial + saldo_ingresado * 3 , 0);
   }
 
   @Test(expected = MaximaCantidadDepositosException.class)
