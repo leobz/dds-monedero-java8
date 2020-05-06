@@ -28,7 +28,6 @@ public class Cuenta {
 
   public void poner(double cuanto) {
     comprobarQueSaldoSeaPositivo(cuanto);
-
     comprobarSiExedioDepositosDiarios();
 
     setSaldo(getSaldo() + cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
@@ -38,9 +37,7 @@ public class Cuenta {
 
   public void sacar(double cuanto) {
     comprobarQueSaldoSeaPositivo(cuanto);
-    if (getSaldo() - cuanto < 0) { //abstraer condicion en un metodo
-      throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
-    }
+    comprobarQueExtraccionNoSupereSaldo(cuanto);
     
     if (cuanto > limite()) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
@@ -52,7 +49,6 @@ public class Cuenta {
     agregarMovimiento(movimiento);
   }
 
-
   private void comprobarQueSaldoSeaPositivo(double cuanto) {
 	if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
@@ -62,6 +58,12 @@ public class Cuenta {
   private void comprobarSiExedioDepositosDiarios() {
 	if (cantidadDeDepositos() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
+    }
+  }
+  
+  private void comprobarQueExtraccionNoSupereSaldo(double cuanto) {
+	if (getSaldo() - cuanto < 0) { //abstraer condicion en un metodo
+      throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
     }
   }
 
