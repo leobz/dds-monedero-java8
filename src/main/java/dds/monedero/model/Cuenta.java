@@ -31,16 +31,16 @@ public class Cuenta {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
 
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
-    	// TODO: CodeSmell
-    	// getMovimientos: movimientos es un atributo de la clase, no es necesario un metodo
-    	// todos los metodos del condicional se deberian abstraer en un metodo aparte, con un nombre
-    	//  expresivo
+    if (cantidadDeDepositos() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
     // TODO: Movimiento debe ser Deposito
+  }
+
+  private long cantidadDeDepositos() {
+	return this.getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
   }
 
   public void sacar(double cuanto) {
