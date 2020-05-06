@@ -29,9 +29,7 @@ public class Cuenta {
   public void poner(double cuanto) {
     comprobarQueSaldoSeaPositivo(cuanto);
 
-    if (cantidadDeDepositos() >= 3) {
-      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
-    }
+    comprobarSiExedioDepositosDiarios();
 
     setSaldo(getSaldo() + cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
@@ -61,6 +59,12 @@ public class Cuenta {
     }
   }
   
+  private void comprobarSiExedioDepositosDiarios() {
+	if (cantidadDeDepositos() >= 3) {
+      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
+    }
+  }
+
   private long cantidadDeDepositos() {
 	return this.getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
   }
