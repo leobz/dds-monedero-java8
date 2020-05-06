@@ -30,8 +30,5 @@ public class Movimiento { //hay dos tipos de movimientos: deposito y extraccion,
   public boolean isDeposito() {
     return esDeposito;
   }
-  
-  public boolean esDeposito() {
-	  return this.esDeposito;
-  }
+
 }
