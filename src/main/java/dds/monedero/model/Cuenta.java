@@ -11,7 +11,7 @@ import dds.monedero.exceptions.SaldoMenorException;
 
 public class Cuenta {
 
-  private double saldo = 0; //TODO: CodeSmell. Se inicializa dos veces.
+  private double saldo;
   private List<Movimiento> movimientos = new ArrayList<>();
 
   public Cuenta() {
