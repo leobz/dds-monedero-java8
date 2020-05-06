@@ -52,18 +52,20 @@ public class Cuenta {
       throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
     }
     
-    double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());// abstraer en una funcion con la line de abajo
-    double limite = 1000 - montoExtraidoHoy; //abstraer en una funcion
-    
-    if (cuanto > limite) {
+    if (cuanto > limite()) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
-          + " diarios, límite: " + limite);
+          + " diarios, límite: " + limite());
     }
     
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
     setSaldo(getSaldo() - cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
     agregarMovimiento(movimiento);
   }
+
+private double limite() {
+	double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
+	return 1000 - montoExtraidoHoy; 
+}
 
   public void agregarMovimiento(Movimiento movimiento) {
     movimientos.add(movimiento);
