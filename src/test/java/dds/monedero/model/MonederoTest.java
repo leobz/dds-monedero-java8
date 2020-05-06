@@ -19,10 +19,10 @@ public class MonederoTest {
 
   @Test
   public void Poner() {
-	double saldo_ingresado = 1500;
+	double ingresado = 1500;
 	double saldo_inicial = cuenta.getSaldo();
-    cuenta.poner(saldo_ingresado);
-    Assert.assertEquals(cuenta.getSaldo(), saldo_inicial + saldo_ingresado, 0);
+    cuenta.poner(ingresado);
+    Assert.assertEquals(cuenta.getSaldo(), saldo_inicial + ingresado, 0);
   }
 
   @Test(expected = MontoNegativoException.class)
@@ -32,20 +32,22 @@ public class MonederoTest {
 
   @Test
   public void TresDepositos() {
-	double saldo_ingresado = 1500;
+	double ingresado = 1500;
 	double saldo_inicial = cuenta.getSaldo();
-    cuenta.poner(saldo_ingresado);
-    cuenta.poner(saldo_ingresado);
-    cuenta.poner(saldo_ingresado);
-    Assert.assertEquals(cuenta.getSaldo(), saldo_inicial + saldo_ingresado * 3 , 0);
+    cuenta.poner(ingresado);
+    cuenta.poner(ingresado);
+    cuenta.poner(ingresado);
+    Assert.assertEquals(cuenta.getSaldo(), saldo_inicial + ingresado * 3 , 0);
   }
 
   @Test(expected = MaximaCantidadDepositosException.class)
   public void MasDeTresDepositos() {
-    cuenta.poner(1500);
-    cuenta.poner(456);
-    cuenta.poner(1900);
-    cuenta.poner(245);
+	double ingresado = 1500;
+
+    cuenta.poner(ingresado);
+    cuenta.poner(ingresado);
+    cuenta.poner(ingresado);
+    cuenta.poner(ingresado);
   }
 
   @Test(expected = SaldoMenorException.class)
