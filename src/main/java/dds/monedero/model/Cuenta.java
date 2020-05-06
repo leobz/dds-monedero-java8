@@ -27,9 +27,7 @@ public class Cuenta {
   }
 
   public void poner(double cuanto) {
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
-    }
+    comprobarQueSaldoSeaPositivo(cuanto);
 
     if (cantidadDeDepositos() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
@@ -39,15 +37,9 @@ public class Cuenta {
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
     agregarMovimiento(movimiento);
   }
-  
-  private long cantidadDeDepositos() {
-	return this.getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
-  }
 
   public void sacar(double cuanto) {
-    if (cuanto <= 0) {
-      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
-    } // Codigo repetido > astraer en un metodo
+    comprobarQueSaldoSeaPositivo(cuanto);
     if (getSaldo() - cuanto < 0) { //abstraer condicion en un metodo
       throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
     }
@@ -60,6 +52,17 @@ public class Cuenta {
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
     setSaldo(getSaldo() - cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
     agregarMovimiento(movimiento);
+  }
+
+
+  private void comprobarQueSaldoSeaPositivo(double cuanto) {
+	if (cuanto <= 0) {
+      throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
+    }
+  }
+  
+  private long cantidadDeDepositos() {
+	return this.getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
   }
 
 private double limite() {
