@@ -23,32 +23,12 @@ public class Movimiento { //hay dos tipos de movimientos: deposito y extraccion,
     return fecha;
   }
 
-  public boolean fueDepositado(LocalDate fecha) {
-    return isDeposito() && esDeLaFecha(fecha);
-  }
-
-  public boolean fueExtraido(LocalDate fecha) {
-    return isExtraccion() && esDeLaFecha(fecha);
-  }
-
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
   }
 
   public boolean isDeposito() {
     return esDeposito;
-  }
-
-  public boolean isExtraccion() {
-    return !esDeposito;
-  }
-
-  public double calcularValor(Cuenta cuenta) {
-    if (esDeposito) {
-      return cuenta.getSaldo() + getMonto();
-    } else {
-      return cuenta.getSaldo() - getMonto();
-    }
   }
   
   public boolean esDeposito() {
