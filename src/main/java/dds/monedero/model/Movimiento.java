@@ -16,7 +16,11 @@ public class Movimiento { //hay dos tipos de movimientos: deposito y extraccion,
   }
 
   public double getMonto() {
-    return monto;
+	if(esDeposito)
+      return monto;
+	else {
+	  return -monto;
+	}
   }
 
   public LocalDate getFecha() {

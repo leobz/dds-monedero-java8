@@ -30,7 +30,6 @@ public class Cuenta {
     comprobarQueSaldoSeaPositivo(cuanto);
     comprobarSiExedioDepositosDiarios();
 
-    setSaldo(getSaldo() + cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
     agregarMovimiento(movimiento);
   }
@@ -45,7 +44,6 @@ public class Cuenta {
     }
     
     Movimiento movimiento = new Movimiento(LocalDate.now(), cuanto, true);
-    setSaldo(getSaldo() - cuanto); //Definir otro uso con Polimorfiscmo de Movimiento
     agregarMovimiento(movimiento);
   }
 
@@ -77,6 +75,7 @@ private double limite() {
 }
 
   public void agregarMovimiento(Movimiento movimiento) {
+	setSaldo(getSaldo() + movimiento.getMonto());
     movimientos.add(movimiento);
   }
 
