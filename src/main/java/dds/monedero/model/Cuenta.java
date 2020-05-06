@@ -76,7 +76,7 @@ private double limite() {
 
   public double getMontoExtraidoA(LocalDate fecha) {
     return getMovimientos().stream()
-        .filter(movimiento -> !movimiento.isDeposito() && movimiento.getFecha().equals(fecha)) //Abstrer condicion en un metodo
+        .filter(movimiento -> !movimiento.isDeposito() && movimiento.esDeLaFecha(fecha)) //Abstrer condicion en un metodo
         .mapToDouble(Movimiento::getMonto)
         .sum(); 
   }
