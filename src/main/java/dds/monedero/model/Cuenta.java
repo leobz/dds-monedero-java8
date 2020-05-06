@@ -63,8 +63,7 @@ public class Cuenta {
  // TODO: Movimiento debe ser Extraccion
   }
 
-  public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) { //Pasar movimiento por parametro
-    Movimiento movimiento = new Movimiento(fecha, cuanto, esDeposito);//eliminar esta linea 
+  public void agregarMovimiento(Movimiento movimiento) {
     movimientos.add(movimiento);
   }
 
